@@ -64,6 +64,7 @@ public class ClientStarter7 extends Application {
 	private void closeprog() {
 		if (AlertBox.display(2)) {
 			stage.close();
+			
 		}
 
 	}

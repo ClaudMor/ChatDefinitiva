@@ -25,11 +25,14 @@ public class Client7 {
 
 	public Client7(GUI7 passedGui) {
 		try {
+			
 			this.gui = passedGui;
+			this.name = gui.GUIname;
+			if(name != null) {
 			ClientSocket = new Socket(InetAddress.getLocalHost(), ClientPort);
 			NameSocket = new Socket(InetAddress.getLocalHost(), NamePort);
 			
-			this.name = gui.GUIname;
+			
 			this.br = new BufferedReader(new InputStreamReader(ClientSocket.getInputStream()));
 			this.Namebr = new BufferedReader(new InputStreamReader(NameSocket.getInputStream()));
 			this.Nameout = NameSocket.getOutputStream();
@@ -40,6 +43,7 @@ public class Client7 {
 						+ " Remote Port: " + ClientSocket.getPort() + "\n");
 			}
 			funzioni();
+			}
 		} catch (IOException e) {
 			gui.GUIname = null;
 			AlertBox.display(3);
@@ -98,8 +102,10 @@ public class Client7 {
 			public void run() {
 				while (true) {
 					String names = null;
+					String names1 = null;
 					try {
 						names = Namebr.readLine();
+						names1= names.replace("null", "");
 					} catch (IOException e) {
 						
 						break;
@@ -107,7 +113,7 @@ public class Client7 {
 					}
 					if (!names.startsWith("quit")) {
 						gui.usersarea.clear();
-						gui.usersarea.appendText(names.replace("!", "\n"));
+						gui.usersarea.appendText(names1.replace("!", "\n"));
 					} else {
 						try {
 							Namebr.close();
